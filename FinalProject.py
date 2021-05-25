@@ -28,8 +28,26 @@ def delete_phone(which):
     del phones[which-1]
     print( "Deleted phone #", which)
 
-def edit_phone():
-    print("Editing")
+def edit_phone(which):
+    if not proper_menu_choice(which):
+        return
+    which = int(which)
+        
+    phone = phones[which-1]
+    print("Enter the data for a new phone. Press <enter> to leave unchanged.")
+    
+    print(phone[name_pos])
+    newname = input("Enter phone name to change or press return: ")
+    if newname == "":
+        newname = phone[name_pos]
+        
+    print(phone[phone_pos])    
+    newphone_num = input("Enter new phone number to change or press return: ")
+    if newphone_num == "":
+        newphone_num = phone[phone_pos]
+            
+    phone = [newname, newphone_num]
+    phones[which-1] = phone
 
 def save_phone_list():
     print("Saving")
@@ -93,7 +111,9 @@ def main_loop():
         elif choice == 's':
             show_phones()
         elif choice == 'e':
-             edit_phone()
+            which = input("Which item do you want to edit? ")
+            print("which is ", which)
+            edit_phone(which)
         else:
             print("Invalid choice.")
             
