@@ -10,8 +10,23 @@ name_pos = 0
 phone_pos = 1
 phone_header = [ 'Name', 'Phone Number']
 
-def delete_phone():
-    print("Deleting")
+def proper_menu_choice(which):
+    if not which.isdigit():
+        print ("'" + which + "' needs to be the number of a phone!")
+        return False
+    which = int(which)
+    if which < 1 or which > len(phones):
+        print ("'" + str(which) + "' needs to be the number of a phone!")
+        return False
+    return True
+    
+def delete_phone(which):
+    if not proper_menu_choice(which):
+        return
+    which = int(which)
+
+    del phones[which-1]
+    print( "Deleted phone #", which)
 
 def edit_phone():
     print("Editing")
@@ -35,7 +50,12 @@ def show_phone(phone, index):
     print(outputstr.format(index, phone[name_pos], phone[phone_pos]))
 
 def create_phone():
-    print("Adding a phone")  
+    print("Enter the data for a new phone:")
+    newname = input("Enter name: ")
+    newphone_num = input("Enter phone number: ")
+    phone = [newname,newphone_num]
+    phones.append(phone)
+    print()
   
 def menu_choice():
     """ Find out what the user wants to do next. """
@@ -67,7 +87,9 @@ def main_loop():
         elif choice == 'n':
             create_phone()
         elif choice == 'd':
-            delete_phone()
+            which = input("Which item do you want to delete? ")
+            print("which is ", which)
+            delete_phone(which)
         elif choice == 's':
             show_phones()
         elif choice == 'e':
