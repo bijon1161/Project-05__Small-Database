@@ -4,6 +4,7 @@ Created on Tue May 25 13:40:18 2021
 
 @author: Admin
 """
+import csv
 phones = [['Jerry Seinfeld', '(212) 344-3784'], 
           ['Cosmo Kramer', '(212) 559-8185']]
 name_pos = 0
@@ -50,7 +51,11 @@ def edit_phone(which):
     phones[which-1] = phone
 
 def save_phone_list():
-    print("Saving")
+
+    f = open("myphones.csv", 'w', newline='')
+    for item in phones:
+        csv.writer(f).writerow(item)
+    f.close()
   
 def load_phone_list():
     print("Loading")
