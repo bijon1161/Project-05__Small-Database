@@ -4,7 +4,11 @@ Created on Tue May 25 13:40:18 2021
 
 @author: Admin
 """
-
+phones = [['Jerry Seinfeld', '(212) 344-3784'], 
+          ['Cosmo Kramer', '(212) 559-8185']]
+name_pos = 0
+phone_pos = 1
+phone_header = [ 'Name', 'Phone Number']
 
 def delete_phone():
     print("Deleting")
@@ -19,7 +23,16 @@ def load_phone_list():
     print("Loading")
 
 def show_phones():
-    print("Showing phones")
+    show_phone(phone_header, "")
+    index = 1
+    for phone in phones:
+        show_phone(phone, index)
+        index = index + 1
+    print()
+
+def show_phone(phone, index):
+    outputstr = "{0:>3}  {1:<20}  {2:>16}"
+    print(outputstr.format(index, phone[name_pos], phone[phone_pos]))
 
 def create_phone():
     print("Adding a phone")  
