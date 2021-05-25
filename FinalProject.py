@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue May 25 13:40:18 2021
+Created on Mon May 24 09:48:54 2021
 
 @author: Admin
 """
+import os
 import csv
-phones = [['Jerry Seinfeld', '(212) 344-3784'], 
-          ['Cosmo Kramer', '(212) 559-8185']]
+
+
+phones = []
 name_pos = 0
 phone_pos = 1
 phone_header = [ 'Name', 'Phone Number']
@@ -50,15 +52,20 @@ def edit_phone(which):
     phone = [newname, newphone_num]
     phones[which-1] = phone
 
+  
 def save_phone_list():
 
-    f = open("myphones.csv", 'w', newline='')
+    f = open("myphones1.csv", 'w', newline='')
     for item in phones:
         csv.writer(f).writerow(item)
     f.close()
   
 def load_phone_list():
-    print("Loading")
+    if os.access("myphones1.csv",os.F_OK):
+        f = open("myphones1.csv")
+        for row in csv.reader(f):
+            phones.append(row)
+        f.close()
 
 def show_phones():
     show_phone(phone_header, "")
@@ -78,8 +85,7 @@ def create_phone():
     newphone_num = input("Enter phone number: ")
     phone = [newname,newphone_num]
     phones.append(phone)
-    print()
-  
+    
 def menu_choice():
     """ Find out what the user wants to do next. """
     print("Choose one of the following options?")
@@ -92,7 +98,8 @@ def menu_choice():
     if choice.lower() in ['n','d', 's','e', 'q']:
         return choice.lower()
     else:
-        print(choice +"?" + " That is an invalid option!!!")
+        print(choice +"?")
+        print("Invalid option")
         return None
 
 
